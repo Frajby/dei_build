@@ -1,0 +1,10 @@
+clientDB.package
+Config.log
+Events.ini
+GameVersion.txt
+localthumbcache.package
+notify.glob
+Options.ini
+ReticulatedSplinesView
+UserData.lock
+UserSetting.ini
