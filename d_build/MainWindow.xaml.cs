@@ -15,15 +15,21 @@ using System.Windows.Shapes;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
 
+
 namespace d_build
 {
     /// <summary>
     /// Interakční logika pro MainWindow.xaml
+    /// 
+    /// 
+    /// 
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string Path { get; set; }
-        public string CheckFilePath { get; set; }
+        public string myBuildPath { get; set; }
+        public string myCheckFilePath { get; set; }
+
+        public string dumbStationsPath { get; set; } // nahrazuje stanice do kterých se bude kopírovat obsah
         public MainWindow()
         {
             InitializeComponent();
@@ -49,22 +55,22 @@ namespace d_build
 
         private void changePath(string path)
         {
-            Path = path;
-            txtPath.Text = Path;
+            myBuildPath = path;
+            txtPath.Text = myBuildPath;
             showBuilds();
         }
 
         private void changeCheckFilePath(string path)
         {
-            CheckFilePath = path;
-            txtCheckFilePath.Text = CheckFilePath;
+            myCheckFilePath = path;
+            txtCheckFilePath.Text = myCheckFilePath;
         }
 
         private void showBuilds()
         {
             comboSetBuilds.Items.Clear();
             DirWorker dw = new DirWorker();
-            List<string> builds = dw.getDirectoriesNames(Path);
+            List<string> builds = dw.getDirectoriesNames(myBuildPath);
             foreach(string s in builds)
             {
                 comboSetBuilds.Items.Add(s);
@@ -90,17 +96,45 @@ namespace d_build
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             DirWorker dw = new DirWorker();
-            List<string> dependencies = dw.getDependencyList(CheckFilePath);
-            Checker checker = new Checker();
-            string folderPath = Path + "\\" + comboSetBuilds.Text;
+            List<string> dependencies = dw.getDependencyList(myCheckFilePath);
+            string buildPath = System.IO.Path.Combine(myBuildPath, comboSetBuilds.Text);
             List<string> directories = new List<string>();
-            directories.Add(folderPath);
+          
+            if(lsvStations.SelectedItems.Count > 0)
+            {
+                foreach(var l in lsvStations.SelectedItems)
+                {
+                    directories.Add(System.IO.Path.Combine(dumbStationsPath,l.ToString()));
+                }
+                ResultsWindow resultWinow = new ResultsWindow(dependencies, directories, buildPath);
+                resultWinow.Show();
+            }
+            else
+            {
+                MessageBox.Show("plese choose at least one dumb workstation");
+            }
 
-            ResultsWindow resultWinow = new ResultsWindow(dependencies, directories);
-            resultWinow.Show();
 
         }
 
+        private void btnDumpStation_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            CommonFileDialogResult res = dialog.ShowDialog();
+            if (res == CommonFileDialogResult.Ok)
+            {
+                dumbStationsPath = dialog.FileName;
+                lsvStations.Items.Clear();
+                DirWorker dw = new DirWorker();
+                List<string> builds = dw.getDirectoriesNames(dialog.FileName);
+                foreach (string s in builds)
+                {
+                    lsvStations.Items.Add(s);
+                }
+            }
 
+
+        }
     }
 }

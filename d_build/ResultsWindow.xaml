@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:d_build"
         mc:Ignorable="d"
-        Title="ResultsWindow" Height="522.237" Width="591.579" Loaded="winResults_Loaded">
+        Title="ResultsWindow" Height="592.237" Width="591.579" Loaded="winResults_Loaded">
     <Grid>
-        <GroupBox Header="Log" HorizontalAlignment="Left" Height="426" Margin="10,55,0,0" VerticalAlignment="Top" Width="564">
+        <GroupBox Header="Log" HorizontalAlignment="Left" Height="426" Margin="10,115,0,0" VerticalAlignment="Top" Width="564">
             <TabControl HorizontalAlignment="Left" Height="383" Margin="10,10,0,0" VerticalAlignment="Top" Width="534">
                 <TabItem x:Name="tabResult" Header="Summary">
                     <Grid Background="#FFE5E5E5">
@@ -18,6 +18,12 @@
                     <Grid Background="#FFE5E5E5"/>
                 </TabItem>
             </TabControl>
+        </GroupBox>
+        <GroupBox Header="Progrees" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="564">
+            <WrapPanel HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="554" Margin="0,10,-2,0">
+                <ProgressBar x:Name="ProgresBar1" Height="19" Width="553"/>
+                <Label x:Name="lblProgressPrecent" Content="Label"/>
+            </WrapPanel>
         </GroupBox>
 
     </Grid>

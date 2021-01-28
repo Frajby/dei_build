@@ -10,6 +10,9 @@ namespace d_build
 {
     class Checker
     {
+        /// <summary>
+        /// Třída by měla být zodpovědná za kontrolování souborů nebo např. porovnávaní Hashů atd.
+        /// </summary>
         public Checker()
         {
 
@@ -18,25 +21,10 @@ namespace d_build
         public Dictionary<string,bool> getCheckedFiles(List<string> dependencies, string folderPath)
         {
             Dictionary<string, bool> retVal = new Dictionary<string, bool>();
-            foreach(string s in dependencies)
+            foreach(string dependecy in dependencies)
             {
-                    retVal.Add(s, isFileExist(s, folderPath)); 
-            }
-            return retVal;
-        }
-
-        private bool isFileExist(string fileToCheck, string dirPath)
-        {
-            bool retVal = false;
-            DirWorker dw = new DirWorker();
-            List<string> files = dw.getFilesInDir(dirPath);
-            foreach(string s in files)
-            {
-                string fullFilePath = dirPath + "\\" + fileToCheck;
-                if (File.Exists(fullFilePath))
-                {
-                    retVal = true;
-                }
+                if(!retVal.ContainsKey(dependecy))
+                    retVal.Add(dependecy, File.Exists(Path.Combine(folderPath,dependecy))); 
             }
             return retVal;
         }

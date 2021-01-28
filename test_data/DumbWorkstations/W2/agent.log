@@ -1,0 +1,5 @@
+Thu Jan 14 03:13:57 2021 OpenVPN Agent 0.1.0 [OpenSSL] built on Aug 21 2020 18:00:13
+Thu Jan 14 03:13:57 2021 HTTP Listen: http-listen \\.\pipe\agent_ovpnconnect NamedPipe 4 !ssl
+Thu Jan 14 03:13:57 2021 HTTP Listen: http-listen \\.\pipe\agent_ovpnconnect NamedPipe 4 !ssl
+Thu Jan 14 03:13:57 2021 HTTP Listen: http-listen \\.\pipe\agent_ovpnconnect NamedPipe 4 !ssl
+Thu Jan 14 03:13:57 2021 HTTP Listen: http-listen \\.\pipe\agent_ovpnconnect NamedPipe 4 !ssl
